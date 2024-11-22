@@ -1,0 +1,9 @@
+# For every question there is an answer
+# The questions and answers are written in the same order.
+questions:
+    - question: "¿Cuál es la capital de colombia?"
+      answer: "Bogotá"
+      type: "Normal"
+    - question: "Escribe de manera correcta, %question%"
+      answer: "Cofre"
+      type: "Sort"

@@ -1,0 +1,6 @@
+main: principal.QuestionsPlugin
+version: 1.0.0
+name: questions
+author: lsEmpty
+api-version: 1.13
+description: This plugin is a chat game that runs every X amount of time.

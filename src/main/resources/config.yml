@@ -1,0 +1,15 @@
+config:
+  game:
+    tittle: "TITTLE"
+    sub_tittle: "SUB_TITTLE"
+    motivational_phrase: "GO"
+    footer: "_____________________"
+  finished_game:
+    # They're global messages
+    when_the_users_do_not_answer: "They didn't answer the question. The answer was %answer%"
+    when_a_user_answers: "%player% answered the question. The answer was %answer%"
+  rewards: null
+  # This range is in seconds
+  waiting_time: 30
+  time_range_to_execute: 120
+  number_of_users_to_run: 1
