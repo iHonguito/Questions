@@ -6,6 +6,7 @@ import principal.QuestionsPlugin;
 import principal.config.MainCustomConfigManager;
 import principal.config.QuestionManager;
 import principal.entities.Question;
+import principal.utils.MessageUtil;
 
 import java.util.List;
 import java.util.Random;
@@ -41,17 +42,20 @@ public class ShowQuestion {
         Random random = new Random();
         int index_random = random.nextInt(questions.size());
         Question question = questions.get(index_random);
-        Bukkit.broadcastMessage(tittle);
-        Bukkit.broadcastMessage(sub_tittle);
-        Bukkit.broadcastMessage(motivational_phrase);
+        Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(tittle)));
+        Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(sub_tittle)));
+        Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(motivational_phrase)));
         if (question.getType().equals("Sort")){
             String disordered_answer = shuffle(question.getAnswer());
-            Bukkit.broadcastMessage(question.getQuestion()
-                    .replace("%question%", disordered_answer));
+            Bukkit.broadcastMessage(
+                    MessageUtil.MessageColor(
+                            MessageUtil.MessageHexColor(
+                                    question.getQuestion()
+                                    .replace("%question%", disordered_answer))));
         }else{
-            Bukkit.broadcastMessage(question.getQuestion());
+            Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(question.getQuestion())));
         }
-        Bukkit.broadcastMessage(footer);
+        Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(footer)));
         return question;
     }
 
