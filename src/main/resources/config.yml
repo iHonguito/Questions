@@ -1,15 +1,15 @@
 config:
   game:
-    tittle: "TITTLE"
-    sub_tittle: "SUB_TITTLE"
-    motivational_phrase: "GO"
-    footer: "_____________________"
+    tittle: "                    &#E100FF☄ &#8B00FF&l&oQ&#A100FF&l&ou&#B600FF&l&oe&#CC00FF&l&os&#E100FF&l&ot&#E100FF&l&oi&#E100FF&l&oo&#E100FF&l&on&#E100FF&l&os &#E100FF☄"
+    sub_tittle: "              &#A0A0A0(ᴀᴅɪᴠɪɴᴀ, ʀᴇsᴘᴏɴᴅᴇ ʏ ɢᴀɴᴀ)"
+    motivational_phrase: null
+    footer: "            &#E100FF&m━&#DB00FF&m━&#D600FF&m━&#D000FF&m━&#CA00FF&m━&#C400FF&m━&#BF00FF&m━&#B900FF&m━&#B300FF&m━&#AD00FF&m━&#A800FF&m━&#A200FF&m━&#9C00FF&m━&#9600FF&m━&#9100FF&m━&#8B00FF&m━&#9100FF&m━&#9700FF&m━&#9D00FF&m━&#A400FF&m━&#AA00FF&m━&#B000FF&m━&#B600FF&m━&#BC00FF&m━&#C200FF&m━&#C800FF&m━&#CF00FF&m━&#D500FF&m━&#DB00FF&m━&#E100FF&m━"
   finished_game:
     # They're global messages
     when_the_users_do_not_answer: "They didn't answer the question. The answer was %answer%"
     when_a_user_answers: "%player% answered the question. The answer was %answer%"
-  rewards: null
   # This range is in seconds
   waiting_time: 30
   time_range_to_execute: 120
   number_of_users_to_run: 1
+  rewards: null

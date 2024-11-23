@@ -44,30 +44,46 @@ public class ShowQuestion {
         Question question = questions.get(index_random);
         Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(tittle)));
         Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(sub_tittle)));
-        Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(motivational_phrase)));
+        Bukkit.broadcastMessage("");
+        if (motivational_phrase != null){
+            Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(motivational_phrase)));
+        }
         if (question.getType().equals("Sort")){
             String disordered_answer = shuffle(question.getAnswer());
-            Bukkit.broadcastMessage(
-                    MessageUtil.MessageColor(
-                            MessageUtil.MessageHexColor(
-                                    question.getQuestion()
-                                    .replace("%question%", disordered_answer))));
+            for (String questionData : question.getQuestion()){
+                Bukkit.broadcastMessage(MessageUtil.MessageColor(
+                        MessageUtil.MessageHexColor(
+                                questionData.replace("%question%", disordered_answer))));
+            }
         }else{
-            Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(question.getQuestion())));
+            for (String questionData : question.getQuestion()){
+                Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(questionData)));
+            }
         }
+        Bukkit.broadcastMessage("");
         Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(footer)));
         return question;
     }
 
     public void messageWhenAnUserAnswersTheQuestion(Player player, Question lastQuestion){
-        Bukkit.broadcastMessage(this.when_a_user_answers
+        Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(tittle)));
+        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage(MessageUtil.MessageColor(
+                MessageUtil.MessageHexColor(
+                this.when_a_user_answers
                 .replace("%player%", player.getName())
-                .replace("%answer%", lastQuestion.getAnswer()));
+                .replace("%answer%", lastQuestion.getAnswer()))));
+        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(footer)));
     }
 
     public void messageWhenTheUsersDoNotAnswerTheQuestion(Question lastQuestion){
-        Bukkit.broadcastMessage(when_the_users_do_not_answer
-                .replace("%answer%", lastQuestion.getAnswer()));
+        Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(tittle)));
+        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage(MessageUtil.MessageColor(
+                MessageUtil.MessageHexColor(when_the_users_do_not_answer.replace("%answer%", lastQuestion.getAnswer()))));
+        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(footer)));
     }
 
     private String shuffle(String input) {

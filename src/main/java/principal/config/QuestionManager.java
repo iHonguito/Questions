@@ -31,7 +31,7 @@ public class QuestionManager {
         FileConfiguration config = customConfig.getConfig();
         List<Map<?, ?>> questions = config.getMapList("questions");
         for (Map<?, ?> questionData : questions){
-            String question = (String) questionData.get("question");
+            List<String> question = (List<String>) questionData.get("question");
             String answer = (String) questionData.get("answer");
             String type = (String) questionData.get("type");
             this.questions.add(new Question(question, answer, type));

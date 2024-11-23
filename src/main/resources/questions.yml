@@ -1,9 +1,14 @@
 # For every question there is an answer
 # The questions and answers are written in the same order.
 questions:
-    - question: "¿Cuál es la capital de colombia?"
-      answer: "Bogotá"
-      type: "Normal"
-    - question: "Escribe de manera correcta, %question%"
-      answer: "Cofre"
-      type: "Sort"
+  - question:
+      - "                 &f¡El primero en escribir"
+      - "           &e¿Cuál es la capital de colombia?."
+      - "                   &fGanará el juego! &a✔"
+    answer: "Bogotá"
+    type: "Normal"
+  - question:
+      - "                 &f¡El primero en ordenar"
+      - "               &e%question%. &fGanará el juego! &a✔"
+    answer: "Cofre"
+    type: "Sort"
