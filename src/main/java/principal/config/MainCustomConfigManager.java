@@ -2,8 +2,11 @@ package principal.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import principal.QuestionsPlugin;
+import principal.entities.Reward;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MainCustomConfigManager {
 
@@ -16,7 +19,7 @@ public class MainCustomConfigManager {
     private String footer;
     private String when_the_users_do_not_answer;
     private String when_a_user_answers;
-    private List<?> rewards;
+    private List<Reward> rewards;
     private int time_range_to_execute;
     private long waiting_time;
     private int number_of_users_to_run;
@@ -43,10 +46,17 @@ public class MainCustomConfigManager {
         this.footer = config.getString("config.game.footer");
         this.when_the_users_do_not_answer = config.getString("config.finished_game.when_the_users_do_not_answer");
         this.when_a_user_answers = config.getString("config.finished_game.when_a_user_answers");
-        this.rewards = config.getList("config.rewards");
         this.time_range_to_execute = config.getInt("config.time_range_to_execute");
         this.waiting_time = config.getLong("config.waiting_time");
         this.number_of_users_to_run = config.getInt("config.number_of_users_to_run");
+        this.rewards = new ArrayList<>();
+        List<Map<?, ?>> rewards = config.getMapList("config.rewards");
+        for (Map<?, ?> rewardData : rewards){
+            String reward = (String) rewardData.get("reward");
+            double provability = (double) rewardData.get("provability");
+            this.rewards.add(new Reward(reward, provability));
+        }
+
     }
 
     public void saveConfig(){
@@ -77,7 +87,7 @@ public class MainCustomConfigManager {
         return when_a_user_answers;
     }
 
-    public List<?> getRewards() {
+    public List<Reward> getRewards() {
         return rewards;
     }
 

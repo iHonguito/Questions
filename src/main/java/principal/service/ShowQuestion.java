@@ -2,10 +2,12 @@ package principal.service;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import principal.QuestionsPlugin;
 import principal.config.MainCustomConfigManager;
 import principal.config.QuestionManager;
 import principal.entities.Question;
+import principal.entities.Reward;
 import principal.utils.MessageUtil;
 
 import java.util.List;
@@ -18,7 +20,9 @@ public class ShowQuestion {
     private String footer;
     private String when_the_users_do_not_answer;
     private String when_a_user_answers;
-    private List<?> rewards;
+    private List<Reward> rewards;
+
+    private QuestionsPlugin plugin;
 
     private List<Question> questions;
 
@@ -28,6 +32,7 @@ public class ShowQuestion {
     public ShowQuestion(MainCustomConfigManager mainCustomConfigManager, QuestionsPlugin plugin) {
         QuestionManager questionManager = new QuestionManager(plugin);
         questions = questionManager.getQuestions();
+        this.plugin = plugin;
 
         this.tittle = mainCustomConfigManager.getTittle();
         this.sub_tittle = mainCustomConfigManager.getSub_tittle();
@@ -75,6 +80,7 @@ public class ShowQuestion {
                 .replace("%answer%", lastQuestion.getAnswer()))));
         Bukkit.broadcastMessage("");
         Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(footer)));
+        selectReward(player);
     }
 
     public void messageWhenTheUsersDoNotAnswerTheQuestion(Question lastQuestion){
@@ -84,6 +90,28 @@ public class ShowQuestion {
                 MessageUtil.MessageHexColor(when_the_users_do_not_answer.replace("%answer%", lastQuestion.getAnswer()))));
         Bukkit.broadcastMessage("");
         Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(footer)));
+    }
+
+    private void selectReward(Player player){
+        String playerName = player.getName();
+        double totalProvability = rewards.stream()
+                .mapToDouble(Reward::getProvability)
+                .sum();
+
+        double randomValue = Math.random() * totalProvability;
+        double cumulativeProvability = 0.0;
+        for (Reward reward : rewards){
+            cumulativeProvability += reward.getProvability();
+            if (randomValue <= cumulativeProvability){
+                new BukkitRunnable(){
+                    @Override
+                    public void run() {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), reward.getReward().replace("%player%", playerName));
+                    }
+                }.runTask(plugin);
+                return;
+            }
+        }
     }
 
     private String shuffle(String input) {

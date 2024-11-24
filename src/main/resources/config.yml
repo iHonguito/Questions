@@ -12,4 +12,12 @@ config:
   waiting_time: 30
   time_range_to_execute: 120
   number_of_users_to_run: 1
-  rewards: null
+  rewards:
+    - reward: "commandmessage %player% 10"
+      provability: 10
+    - reward: "commandmessage %player% 20"
+      provability: 20
+    - reward: "commandmessage %player% 40"
+      provability: 40
+    - reward: "commandmessage %player% 30"
+      provability: 30
