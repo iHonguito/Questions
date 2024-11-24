@@ -3,9 +3,8 @@ package principal.threads;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 import principal.QuestionsPlugin;
-import principal.config.MainCustomConfigManager;
+import principal.config.manager.MainCustomConfigManager;
 import principal.entities.Question;
-import principal.listeners.PlayerListener;
 import principal.service.ShowQuestion;
 
 import java.util.concurrent.Executors;

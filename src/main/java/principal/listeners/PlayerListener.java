@@ -4,17 +4,26 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import principal.QuestionsPlugin;
-import principal.config.MainCustomConfigManager;
+import principal.config.manager.MainCustomConfigManager;
+import principal.config.manager.PlayerDataManager;
 import principal.service.ShowQuestion;
 import principal.threads.ExecuteQuestion;
 
 public class PlayerListener implements Listener {
 
     private final ShowQuestion showQuestion;
+    private final PlayerDataManager playerDataManager;
 
-    public PlayerListener(MainCustomConfigManager mainCustomConfigManager, QuestionsPlugin plugin) {
+    public PlayerListener(MainCustomConfigManager mainCustomConfigManager, QuestionsPlugin plugin, PlayerDataManager playerDataManager) {
         showQuestion = new ShowQuestion(mainCustomConfigManager, plugin);
+        this.playerDataManager = playerDataManager;
+    }
+
+    @EventHandler
+    public void enteringPlayer(PlayerJoinEvent event){
+        playerDataManager.getPlayer(event.getPlayer(), true);
     }
 
     @EventHandler

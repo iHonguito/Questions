@@ -1,7 +1,8 @@
-package principal.config;
+package principal.config.manager;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import principal.QuestionsPlugin;
+import principal.config.CustomConfig;
 import principal.entities.Reward;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class MainCustomConfigManager {
     }
 
     public MainCustomConfigManager(QuestionsPlugin plugin) {
-        customConfig = new CustomConfig("config.yml", null, plugin);
+        customConfig = new CustomConfig("config.yml", null, plugin, false);
         this.loadConfig();
     }
 

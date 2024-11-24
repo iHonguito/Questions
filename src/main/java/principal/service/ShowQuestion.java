@@ -4,8 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import principal.QuestionsPlugin;
-import principal.config.MainCustomConfigManager;
-import principal.config.QuestionManager;
+import principal.config.manager.MainCustomConfigManager;
+import principal.config.manager.PlayerDataManager;
+import principal.config.manager.QuestionManager;
 import principal.entities.Question;
 import principal.entities.Reward;
 import principal.utils.MessageUtil;
@@ -81,6 +82,7 @@ public class ShowQuestion {
         Bukkit.broadcastMessage("");
         Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(footer)));
         selectReward(player);
+        QuestionsPlugin.playerDataManager.addWin(player);
     }
 
     public void messageWhenTheUsersDoNotAnswerTheQuestion(Question lastQuestion){

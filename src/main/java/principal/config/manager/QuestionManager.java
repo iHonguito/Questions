@@ -1,7 +1,8 @@
-package principal.config;
+package principal.config.manager;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import principal.QuestionsPlugin;
+import principal.config.CustomConfig;
 import principal.entities.Question;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class QuestionManager {
     }
 
     public QuestionManager(QuestionsPlugin plugin) {
-        customConfig = new CustomConfig("questions.yml", null, plugin);
+        customConfig = new CustomConfig("questions.yml", null, plugin, false);
         questions = new ArrayList<>();
         this.loadConfig();
     }

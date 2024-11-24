@@ -14,11 +14,13 @@ public class CustomConfig {
     private FileConfiguration fileConfiguration = null;
     private File file = null;
     private String folderName;
+    private boolean newFile;
 
-    public CustomConfig(String fileName, String folderName, QuestionsPlugin plugin){
+    public CustomConfig(String fileName, String folderName, QuestionsPlugin plugin, boolean newFile){
         this.fileName = fileName;
         this.folderName = folderName;
         this.plugin = plugin;
+        this.newFile = newFile;
     }
 
     public String getPath(){
@@ -33,10 +35,18 @@ public class CustomConfig {
         }
 
         if(!file.exists()){
-            if(folderName != null){
-                plugin.saveResource(folderName+File.separator+fileName, false);
+            if (newFile){
+                try {
+                    file.createNewFile();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
             }else{
-                plugin.saveResource(fileName, false);
+                if(folderName != null){
+                    plugin.saveResource(folderName+File.separator+fileName, false);
+                }else{
+                    plugin.saveResource(fileName, false);
+                }
             }
         }
 
