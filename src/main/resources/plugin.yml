@@ -4,3 +4,17 @@ name: questions
 author: lsEmpty
 api-version: 1.13
 description: This plugin is a chat game that runs every X amount of time.
+
+commands:
+  qtop:
+    description: Get top 10 players with the most questions answered
+  qsave:
+    description: Save player data
+  qreload:
+    description: Reload questions data or config data
+  qhelp:
+    description: Show all commands of this plugin
+  qenable:
+    description: In case the plugin is not working, start the thread
+  qdisable:
+    description: In case the plugin is working, stop the thread

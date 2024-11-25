@@ -21,13 +21,18 @@ public class QuestionManager {
         this.loadConfig();
     }
 
-    private void loadConfig(){
+    public void loadConfig(){
         customConfig.registerConfig();
         this.getConfig();
         customConfig.reloadConfig();
     }
 
+    public void saveConfig(){
+        customConfig.saveConfig();
+    }
+
     private void getConfig(){
+        this.questions = new ArrayList<>();
         FileConfiguration config = customConfig.getConfig();
         List<Map<?, ?>> questions = config.getMapList("questions");
         for (Map<?, ?> questionData : questions){

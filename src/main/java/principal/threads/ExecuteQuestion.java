@@ -2,6 +2,7 @@ package principal.threads;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import principal.QuestionsPlugin;
 import principal.config.manager.MainCustomConfigManager;
 import principal.entities.Question;
@@ -14,8 +15,9 @@ import java.util.concurrent.TimeUnit;
 public class ExecuteQuestion {
 
     private MainCustomConfigManager mainCustomConfigManager;
-    private ShowQuestion showQuestion;
     private QuestionsPlugin plugin;
+    private BukkitTask task;
+    public static ShowQuestion showQuestion;
     public static Question lastQuestion;
     public static Long timeout;
 
@@ -29,29 +31,35 @@ public class ExecuteQuestion {
         showQuestion = new ShowQuestion(mainCustomConfigManager, plugin);
     }
 
-    public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     public static long startTime;
     public void run() {
-        new BukkitRunnable() {
+        task = new BukkitRunnable() {
             @Override
             public void run() {
-                int numbers_players = Bukkit.getServer().getOnlinePlayers().size();
-                int numbers_of_users_to_run = mainCustomConfigManager.getNumber_of_users_to_run();
-                numbers_of_users_to_run = numbers_of_users_to_run > 0 ? numbers_of_users_to_run : 1;
-                if (numbers_players >= numbers_of_users_to_run){
-                    QuestionsPlugin.changeStateInQuestion();
-                    lastQuestion = showQuestion.show();
-                    startTime = System.currentTimeMillis();
-
-                    scheduler.schedule(()->{
-                        //Show message that say "not answered this question"
-                        if (QuestionsPlugin.InQuestion){
-                            showQuestion.messageWhenTheUsersDoNotAnswerTheQuestion(lastQuestion);
-                            QuestionsPlugin.changeStateInQuestion();
-                        }
-                    }, mainCustomConfigManager.getWaiting_time(), TimeUnit.SECONDS);
-                }
+                showQuestion();
             }
         }.runTaskTimer(plugin, 0, mainCustomConfigManager.getTime_range_to_execute() * 20L);
+    }
+
+    public void showQuestion(){
+        int numbers_players = Bukkit.getServer().getOnlinePlayers().size();
+        int numbers_of_users_to_run = mainCustomConfigManager.getNumber_of_users_to_run();
+        numbers_of_users_to_run = numbers_of_users_to_run > 0 ? numbers_of_users_to_run : 1;
+        if (numbers_players >= numbers_of_users_to_run){
+            QuestionsPlugin.changeStateInQuestion();
+            lastQuestion = showQuestion.show();
+            startTime = System.currentTimeMillis();
+            Bukkit.getScheduler().runTaskLater(plugin, () ->{
+                //Show message that say "not answered this question"
+                if (QuestionsPlugin.InQuestion){
+                    showQuestion.messageWhenTheUsersDoNotAnswerTheQuestion(lastQuestion);
+                    QuestionsPlugin.changeStateInQuestion();
+                }
+            }, 20L * mainCustomConfigManager.getWaiting_time());
+        }
+    }
+
+    public void DisablePlugin(){
+        task.cancel();
     }
 }

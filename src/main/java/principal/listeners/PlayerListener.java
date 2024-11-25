@@ -13,11 +13,9 @@ import principal.threads.ExecuteQuestion;
 
 public class PlayerListener implements Listener {
 
-    private final ShowQuestion showQuestion;
     private final PlayerDataManager playerDataManager;
 
     public PlayerListener(MainCustomConfigManager mainCustomConfigManager, QuestionsPlugin plugin, PlayerDataManager playerDataManager) {
-        showQuestion = new ShowQuestion(mainCustomConfigManager, plugin);
         this.playerDataManager = playerDataManager;
     }
 
@@ -33,7 +31,7 @@ public class PlayerListener implements Listener {
                 long elapsedTime = System.currentTimeMillis() - ExecuteQuestion.startTime;
                 QuestionsPlugin.changeStateInQuestion();
                 Player playerWhoAnswering = event.getPlayer();
-                showQuestion.messageWhenAnUserAnswersTheQuestion(playerWhoAnswering, ExecuteQuestion.lastQuestion);
+                ExecuteQuestion.showQuestion.messageWhenAnUserAnswersTheQuestion(playerWhoAnswering, ExecuteQuestion.lastQuestion);
             }
         }
     }

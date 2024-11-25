@@ -12,6 +12,7 @@ config:
   waiting_time: 30
   time_range_to_execute: 120
   number_of_users_to_run: 1
+  time_to_save_data: 300
   rewards:
     - reward: "commandmessage %player% 10"
       provability: 10

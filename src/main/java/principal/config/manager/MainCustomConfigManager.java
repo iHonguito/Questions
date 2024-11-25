@@ -24,22 +24,25 @@ public class MainCustomConfigManager {
     private int time_range_to_execute;
     private long waiting_time;
     private int number_of_users_to_run;
+    private int time_to_save_data;
 
     public MainCustomConfigManager() {
     }
 
     public MainCustomConfigManager(QuestionsPlugin plugin) {
         customConfig = new CustomConfig("config.yml", null, plugin, false);
+        this.rewards = new ArrayList<>();
         this.loadConfig();
     }
 
-    private void loadConfig(){
+    public void loadConfig(){
         customConfig.registerConfig();
         this.getConfig();
         customConfig.reloadConfig();
     }
 
     public void getConfig(){
+        this.rewards = new ArrayList<>();
         FileConfiguration config = customConfig.getConfig();
         this.tittle = config.getString("config.game.tittle");
         this.sub_tittle = config.getString("config.game.sub_tittle");
@@ -50,11 +53,11 @@ public class MainCustomConfigManager {
         this.time_range_to_execute = config.getInt("config.time_range_to_execute");
         this.waiting_time = config.getLong("config.waiting_time");
         this.number_of_users_to_run = config.getInt("config.number_of_users_to_run");
-        this.rewards = new ArrayList<>();
+        this.time_to_save_data = config.getInt("config.time_to_save_data");
         List<Map<?, ?>> rewards = config.getMapList("config.rewards");
         for (Map<?, ?> rewardData : rewards){
             String reward = (String) rewardData.get("reward");
-            double provability = (double) rewardData.get("provability");
+            double provability = ((Integer) rewardData.get("provability")).doubleValue();
             this.rewards.add(new Reward(reward, provability));
         }
 
@@ -102,5 +105,9 @@ public class MainCustomConfigManager {
 
     public int getNumber_of_users_to_run() {
         return number_of_users_to_run;
+    }
+
+    public int getTime_to_save_data() {
+        return time_to_save_data;
     }
 }

@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Random;
 
 public class ShowQuestion {
+
+    public static QuestionManager questionManager;
+    private MainCustomConfigManager mainCustomConfigManager;
+
     private String tittle;
     private String sub_tittle;
     private String motivational_phrase;
@@ -31,10 +35,19 @@ public class ShowQuestion {
     }
 
     public ShowQuestion(MainCustomConfigManager mainCustomConfigManager, QuestionsPlugin plugin) {
-        QuestionManager questionManager = new QuestionManager(plugin);
-        questions = questionManager.getQuestions();
+        questionManager = new QuestionManager(plugin);
+        getQuestionsOfQuestionManager();
         this.plugin = plugin;
+        this.mainCustomConfigManager = mainCustomConfigManager;
+        loadConfigMainConfig();
 
+    }
+
+    public void getQuestionsOfQuestionManager(){
+        questions = questionManager.getQuestions();
+    }
+
+    public void loadConfigMainConfig(){
         this.tittle = mainCustomConfigManager.getTittle();
         this.sub_tittle = mainCustomConfigManager.getSub_tittle();
         this.motivational_phrase = mainCustomConfigManager.getMotivational_phrase();
