@@ -7,6 +7,7 @@ import principal.entities.PlayerData;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.UUID;
 
 public class PlayerDataManager {
@@ -15,7 +16,7 @@ public class PlayerDataManager {
 
     public PlayerDataManager() {
         this.players = new HashMap<>();
-        this.playerNames = new HashMap<>();
+        this.playerNames = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     }
 
     public Map<UUID, PlayerData> getPlayers() {
@@ -45,7 +46,7 @@ public class PlayerDataManager {
 
     public PlayerData getPlayerByName(String playerName){
         UUID uuid = playerNames.get(playerName);
-        return players.get(uuid);
+        return this.players.getOrDefault(uuid, null);
     }
 
     public void addWin(Player player){

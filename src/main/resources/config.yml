@@ -1,4 +1,6 @@
+# All this config is manipulable
 config:
+  # All data of type String can use HexColor and NormalColor
   game:
     tittle: "                    &#E100FF☄ &#8B00FF&l&oQ&#A100FF&l&ou&#B600FF&l&oe&#CC00FF&l&os&#E100FF&l&ot&#E100FF&l&oi&#E100FF&l&oo&#E100FF&l&on&#E100FF&l&os &#E100FF☄"
     sub_tittle: "              &#A0A0A0(ᴀᴅɪᴠɪɴᴀ, ʀᴇsᴘᴏɴᴅᴇ ʏ ɢᴀɴᴀ)"
@@ -6,19 +8,28 @@ config:
     footer: "            &#E100FF&m━&#DB00FF&m━&#D600FF&m━&#D000FF&m━&#CA00FF&m━&#C400FF&m━&#BF00FF&m━&#B900FF&m━&#B300FF&m━&#AD00FF&m━&#A800FF&m━&#A200FF&m━&#9C00FF&m━&#9600FF&m━&#9100FF&m━&#8B00FF&m━&#9100FF&m━&#9700FF&m━&#9D00FF&m━&#A400FF&m━&#AA00FF&m━&#B000FF&m━&#B600FF&m━&#BC00FF&m━&#C200FF&m━&#C800FF&m━&#CF00FF&m━&#D500FF&m━&#DB00FF&m━&#E100FF&m━"
   finished_game:
     # They're global messages
-    when_the_users_do_not_answer: "They didn't answer the question. The answer was %answer%"
-    when_a_user_answers: "%player% answered the question. The answer was %answer%"
+    when_the_users_do_not_answer: "Nadie respondió la pregunta. La respuesta era &e%answer%"
+    when_a_user_answers: "¡&d%player% &frespondió la pregunta en %seconds% segundos!. La respuesta era &e%answer%. &dWin: &f%won%"
+  top:
+    tittle: "      &#E100FF☄ &#8B00FF&l&oQ&#9200FF&l&ou&#9900FF&l&oe&#A100FF&l&os&#A800FF&l&ot&#AF00FF&l&oi&#B600FF&l&oo&#BD00FF&l&on&#C400FF&l&os &#D300FF&l&oT&#DA00FF&l&oo&#E100FF&l&op &#E100FF☄"
+    content: " &#E100FF%place%. &7%player% &dWon: &f%won%"
+    footer: " &#E100FF&m━&#DB00FF&m━&#D600FF&m━&#D000FF&m━&#CA00FF&m━&#C400FF&m━&#BF00FF&m━&#B900FF&m━&#B300FF&m━&#AD00FF&m━&#A800FF&m━&#A200FF&m━&#9C00FF&m━&#9600FF&m━&#9100FF&m━&#8B00FF&m━&#9100FF&m━&#9700FF&m━&#9D00FF&m━&#A400FF&m━&#AA00FF&m━&#B000FF&m━&#B600FF&m━&#BC00FF&m━&#C200FF&m━&#C800FF&m━&#CF00FF&m━&#D500FF&m━&#DB00FF&m━&#E100FF&m━"
+    single_user: "%prefix%&7%player% &dPlace: &f%place% &dWon: &f%won%"
+    in_case_the_player_is_not_fount: "%prefix%&cThe player wasn't found."
+  message_when_the_user_does_not_have_permissions: "&cYou don't have permissions to use this command."
   # This range is in seconds
-  waiting_time: 30
-  time_range_to_execute: 120
-  number_of_users_to_run: 1
-  time_to_save_data: 300
+  waiting_time: 30 # Waiting time after a question
+  time_range_to_execute: 120 # Waiting time to execute a question, it's the range
+  number_of_users_to_run: 1 # Number of users to run questions
+  time_to_save_data: 300 # Time range to execute data saving
+
+  # List of rewards
   rewards:
-    - reward: "commandmessage %player% 10"
-      provability: 10
+    - reward: "commandmessage %player% 10" # Command to execute when a user answers a question
+      probability: 10 # Probability, can be integer or double
     - reward: "commandmessage %player% 20"
-      provability: 20
+      probability: 20
     - reward: "commandmessage %player% 40"
-      provability: 40
+      probability: 40
     - reward: "commandmessage %player% 30"
-      provability: 30
+      probability: 30

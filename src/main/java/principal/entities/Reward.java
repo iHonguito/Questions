@@ -2,26 +2,26 @@ package principal.entities;
 
 public class Reward {
     private String reward;
-    private double provability;
+    private double probability;
 
-    public Reward(String reward, double provability) {
+    public Reward(String reward, double probability) {
         this.reward = reward;
-        this.provability = provability;
+        this.probability = probability;
     }
 
     public void setReward(String reward) {
         this.reward = reward;
     }
 
-    public void setProvability(double provability) {
-        this.provability = provability;
+    public void setProbability(double probability) {
+        this.probability = probability;
     }
 
     public String getReward() {
         return reward;
     }
 
-    public double getProvability() {
-        return provability;
+    public double getProbability() {
+        return probability;
     }
 }

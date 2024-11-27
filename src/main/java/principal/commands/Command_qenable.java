@@ -18,12 +18,17 @@ public class Command_qenable implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
+        if (!sender.hasPermission("questions.admin")){
+            sender.sendMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(QuestionsPlugin.prefix+QuestionsPlugin.mainCustomConfigManager.getMessage_when_the_user_does_not_have_permissions())));
+            return true;
+        }
         if (!QuestionsPlugin.InExecution){
             QuestionsPlugin.InExecution = true;
             executeQuestion.run();
-            Bukkit.broadcastMessage(MessageUtil.MessageColor(QuestionsPlugin.prefix+"&aRunning plugin."));
+            Bukkit.dispatchCommand(sender, "qsave enable");
+            sender.sendMessage(MessageUtil.MessageColor(QuestionsPlugin.prefix+"&aRunning questions."));
         }else{
-            Bukkit.broadcastMessage(MessageUtil.MessageColor(QuestionsPlugin.prefix+"&cThe plugin is already running."));
+            sender.sendMessage(MessageUtil.MessageColor(QuestionsPlugin.prefix+"&cThe plugin is already running."));
         }
         return true;
     }

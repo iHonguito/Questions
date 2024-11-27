@@ -84,18 +84,22 @@ public class ShowQuestion {
         return question;
     }
 
-    public void messageWhenAnUserAnswersTheQuestion(Player player, Question lastQuestion){
+    public void messageWhenAnUserAnswersTheQuestion(Player player, Question lastQuestion, String seconds){
+        QuestionsPlugin.playerDataManager.addWin(player);
+        int won = QuestionsPlugin.playerDataManager.getWonByName(player.getName());
         Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(tittle)));
         Bukkit.broadcastMessage("");
         Bukkit.broadcastMessage(MessageUtil.MessageColor(
                 MessageUtil.MessageHexColor(
                 this.when_a_user_answers
-                .replace("%player%", player.getName())
-                .replace("%answer%", lastQuestion.getAnswer()))));
+                    .replace("%player%", player.getName())
+                    .replace("%answer%", lastQuestion.getAnswer())
+                    .replace("%seconds%", seconds)
+                    .replace("%won%", String.valueOf(won))
+                )));
         Bukkit.broadcastMessage("");
         Bukkit.broadcastMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(footer)));
         selectReward(player);
-        QuestionsPlugin.playerDataManager.addWin(player);
     }
 
     public void messageWhenTheUsersDoNotAnswerTheQuestion(Question lastQuestion){
@@ -109,15 +113,15 @@ public class ShowQuestion {
 
     private void selectReward(Player player){
         String playerName = player.getName();
-        double totalProvability = rewards.stream()
-                .mapToDouble(Reward::getProvability)
+        double totalProbability = rewards.stream()
+                .mapToDouble(Reward::getProbability)
                 .sum();
 
-        double randomValue = Math.random() * totalProvability;
-        double cumulativeProvability = 0.0;
+        double randomValue = Math.random() * totalProbability;
+        double cumulativeProbability = 0.0;
         for (Reward reward : rewards){
-            cumulativeProvability += reward.getProvability();
-            if (randomValue <= cumulativeProvability){
+            cumulativeProbability += reward.getProbability();
+            if (randomValue <= cumulativeProbability){
                 new BukkitRunnable(){
                     @Override
                     public void run() {

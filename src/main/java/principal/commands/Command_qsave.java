@@ -1,5 +1,6 @@
 package principal.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,6 +22,11 @@ public class Command_qsave implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
+        if (!sender.hasPermission("questions.admin")){
+            sender.sendMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(QuestionsPlugin.prefix+QuestionsPlugin.mainCustomConfigManager.getMessage_when_the_user_does_not_have_permissions())));
+            return true;
+        }
+
         if (args.length == 0){
             playersConfigManager.saveConfigs();
             sender.sendMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(QuestionsPlugin.prefix+"&aSaved data")));
@@ -40,16 +46,19 @@ public class Command_qsave implements CommandExecutor {
             if (args[0].equalsIgnoreCase("disable")){
                 if (QuestionsPlugin.InSaveData){
                     executeSave.disableSaveData();
+                    QuestionsPlugin.playersConfigManager.saveConfigs();
                     QuestionsPlugin.InSaveData = false;
                     sender.sendMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(QuestionsPlugin.prefix+"&aStopped data saving.")));
+                    Bukkit
+                            .getConsoleSender()
+                            .sendMessage(MessageUtil.MessageColor(
+                                    MessageUtil.MessageHexColor(QuestionsPlugin.prefix+"&aSaved data.")));
                 }else{
                     sender.sendMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(QuestionsPlugin.prefix+"&cData saving is already disabled")));
                 }
                 return true;
             }
         }
-        sender.sendMessage(MessageUtil.MessageColor(
-                QuestionsPlugin.prefix+"&cTo use this command you must pass </qsave> alone, or as a second parameter <enable> or <disable>. For more information </qhelp>"));
         return true;
     }
 }

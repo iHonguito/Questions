@@ -1,5 +1,5 @@
 main: principal.QuestionsPlugin
-version: 1.2.0
+version: 1.4.0
 name: questions
 author: lsEmpty
 api-version: 1.13
@@ -18,3 +18,13 @@ commands:
     description: In case the plugin is not working, start the thread
   qdisable:
     description: In case the plugin is working, stop the thread
+
+permissions:
+  questions.admin:
+    description: The user with this permission can use admin commands.
+    default: op
+    children:
+      questions.user: true
+  questions.user:
+    description: Allows the user can use normal commands # qtop and qtop <user>
+    default: true

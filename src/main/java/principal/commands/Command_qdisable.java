@@ -19,12 +19,17 @@ public class Command_qdisable implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
+        if (!sender.hasPermission("questions.admin")){
+            sender.sendMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(QuestionsPlugin.prefix+QuestionsPlugin.mainCustomConfigManager.getMessage_when_the_user_does_not_have_permissions())));
+            return true;
+        }
         if (QuestionsPlugin.InExecution){
             QuestionsPlugin.InExecution = false;
             executeQuestion.DisablePlugin();
-            Bukkit.broadcastMessage(MessageUtil.MessageColor(QuestionsPlugin.prefix+"&aStopped plugin."));
+            Bukkit.dispatchCommand(sender, "qsave disable");
+            sender.sendMessage(MessageUtil.MessageColor(QuestionsPlugin.prefix+"&aStopped questions."));
         }else{
-            Bukkit.broadcastMessage(MessageUtil.MessageColor(QuestionsPlugin.prefix+"&cThe plugin is already stopped."));
+            sender.sendMessage(MessageUtil.MessageColor(QuestionsPlugin.prefix+"&cThe plugin is already stopped."));
         }
         return true;
     }

@@ -21,11 +21,14 @@ public class Command_qreload implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
+        if (!sender.hasPermission("questions.admin")){
+            sender.sendMessage(MessageUtil.MessageColor(MessageUtil.MessageHexColor(QuestionsPlugin.prefix+QuestionsPlugin.mainCustomConfigManager.getMessage_when_the_user_does_not_have_permissions())));
+            return true;
+        }
         if (args.length == 0){
             sender.sendMessage(MessageUtil.MessageColor(QuestionsPlugin.prefix+"&cTo use this command you must pass <questions> or <config> as a parameter"));
             return true;
         }
-
         if (args.length == 1){
             if (args[0].equalsIgnoreCase("questions")){
                 ShowQuestion.questionManager.loadConfig();

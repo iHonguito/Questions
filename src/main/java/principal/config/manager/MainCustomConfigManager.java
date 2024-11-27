@@ -26,6 +26,15 @@ public class MainCustomConfigManager {
     private int number_of_users_to_run;
     private int time_to_save_data;
 
+    // Top
+    private String top_tittle;
+    private String top_content;
+    private String top_footer;
+    private String top_single_user;
+    private String top_in_case_the_player_is_not_fount;
+
+    private String message_when_the_user_does_not_have_permissions;
+
     public MainCustomConfigManager() {
     }
 
@@ -35,13 +44,13 @@ public class MainCustomConfigManager {
         this.loadConfig();
     }
 
-    public void loadConfig(){
+    public void loadConfig() {
         customConfig.registerConfig();
         this.getConfig();
         customConfig.reloadConfig();
     }
 
-    public void getConfig(){
+    public void getConfig() {
         this.rewards = new ArrayList<>();
         FileConfiguration config = customConfig.getConfig();
         this.tittle = config.getString("config.game.tittle");
@@ -54,16 +63,33 @@ public class MainCustomConfigManager {
         this.waiting_time = config.getLong("config.waiting_time");
         this.number_of_users_to_run = config.getInt("config.number_of_users_to_run");
         this.time_to_save_data = config.getInt("config.time_to_save_data");
+        //Top
+        this.top_tittle = config.getString("config.top.tittle");
+        this.top_content = config.getString("config.top.content");
+        this.top_footer = config.getString("config.top.footer");
+        this.top_single_user = config.getString("config.top.single_user");
+        this.top_in_case_the_player_is_not_fount = config.getString("config.top.in_case_the_player_is_not_fount");
+
+        this.message_when_the_user_does_not_have_permissions = config.getString("config.message_when_the_user_does_not_have_permissions");
         List<Map<?, ?>> rewards = config.getMapList("config.rewards");
-        for (Map<?, ?> rewardData : rewards){
+        for (Map<?, ?> rewardData : rewards) {
             String reward = (String) rewardData.get("reward");
-            double provability = ((Integer) rewardData.get("provability")).doubleValue();
-            this.rewards.add(new Reward(reward, provability));
+            double probability = 0.0;
+            Object probabilityObject = rewardData.get("probability");
+            System.out.println("Object: " + probabilityObject);
+            if (probabilityObject instanceof Double) {
+                probability = (Double) rewardData.get("probability");
+            } else if (probabilityObject instanceof Integer) {
+                probability = ((Integer) rewardData.get("probability")).doubleValue();
+            } else {
+                throw new IllegalArgumentException("Error in reward configuration (Probability)");
+            }
+            this.rewards.add(new Reward(reward, probability));
         }
 
     }
 
-    public void saveConfig(){
+    public void saveConfig() {
         customConfig.saveConfig();
     }
 
@@ -109,5 +135,29 @@ public class MainCustomConfigManager {
 
     public int getTime_to_save_data() {
         return time_to_save_data;
+    }
+
+    public String getTop_tittle() {
+        return top_tittle;
+    }
+
+    public String getTop_content() {
+        return top_content;
+    }
+
+    public String getTop_footer() {
+        return top_footer;
+    }
+
+    public String getTop_single_user() {
+        return top_single_user;
+    }
+
+    public String getTop_in_case_the_player_is_not_fount() {
+        return top_in_case_the_player_is_not_fount;
+    }
+
+    public String getMessage_when_the_user_does_not_have_permissions() {
+        return message_when_the_user_does_not_have_permissions;
     }
 }

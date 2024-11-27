@@ -2,10 +2,7 @@ package principal;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import principal.commands.Command_qdisable;
-import principal.commands.Command_qenable;
-import principal.commands.Command_qreload;
-import principal.commands.Command_qsave;
+import principal.commands.*;
 import principal.config.manager.PlayerDataManager;
 import principal.config.manager.PlayersConfigManager;
 import principal.listeners.PlayerListener;
@@ -27,9 +24,9 @@ public class QuestionsPlugin extends JavaPlugin {
     public void onEnable(){
         mainCustomConfigManager = new MainCustomConfigManager(this);
         executeQuestion = new ExecuteQuestion(mainCustomConfigManager, this);
-        executeSave = new ExecuteSave(this);
         playerDataManager = new PlayerDataManager();
         playersConfigManager = new PlayersConfigManager(this, "player_data");
+        executeSave = new ExecuteSave(this, playerDataManager);
         registerHandlers();
         registerCommands();
         executeQuestion.run();
@@ -55,5 +52,7 @@ public class QuestionsPlugin extends JavaPlugin {
         getCommand("qdisable").setExecutor(new Command_qdisable(executeQuestion));
         getCommand("qreload").setExecutor(new Command_qreload());
         getCommand("qsave").setExecutor(new Command_qsave(playersConfigManager, executeSave));
+        getCommand("qtop").setExecutor(new Command_qtop(executeSave));
+        getCommand("qhelp").setExecutor(new Command_qhelp());
     }
 }
